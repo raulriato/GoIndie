@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  email      String       @unique @db.VarChar(255)
+  password   String       @db.VarChar(255)
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
+  Session    Session[]
+  Action     Action[]
+  Vote       Vote[]
+  Rating     Rating[]
+  Comment    Comment[]
+  Like       Like[]
+}
+
+model Session {
+  id         Int          @id @default(autoincrement())
+  user_id    Int
+  User       User        @relation(fields: [user_id], references: [id])
+  token      String
+  active     Boolean
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
+}
+
+model Game {
+  id           Int          @id @default(autoincrement())
+  name         String       @unique
+  released_at  DateTime
+  subtitle     String
+  description  String       @db.Text
+  created_at   DateTime     @default(now())
+  updated_at   DateTime     @default(now())
+  Action       Action[]
+  Rating       Rating[]
+  Comment      Comment[]
+  GameCategory GameCategory[]
+  @@index([name])
+}
+
+model Action {
+  id         Int          @id @default(autoincrement())
+  user_id    Int
+  User       User         @relation(fields: [user_id], references: [id])
+  game_id    Int
+  Game       Game         @relation(fields: [game_id], references: [id])
+  name       String
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
+  Vote       Vote[]
+}
+
+model Vote {
+  id         Int          @id @default(autoincrement())
+  user_id    Int
+  User       User         @relation(fields: [user_id], references: [id])
+  action_id  Int
+  Action     Action       @relation(fields: [action_id], references: [id])
+  is_up_vote Boolean
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
+}
+
+model Rating {
+  id         Int          @id @default(autoincrement())
+  user_id    Int
+  User       User         @relation(fields: [user_id], references: [id])
+  game_id    Int
+  Game       Game         @relation(fields: [game_id], references: [id])
+  rating     Int
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
+}
+
+model Comment {
+  id         Int          @id @default(autoincrement())
+  user_id    Int
+  User       User         @relation(fields: [user_id], references: [id])
+  game_id    Int
+  Game       Game         @relation(fields: [game_id], references: [id])
+  comment    String
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
+  Like       Like[]
+}
+
+model Like {
+  id         Int          @id @default(autoincrement())
+  user_id    Int
+  User       User         @relation(fields: [user_id], references: [id])
+  comment_id Int
+  Comment    Comment      @relation(fields: [comment_id], references: [id])
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
+}
+
+model Category {
+  id           Int          @id @default(autoincrement())
+  name         String
+  created_at   DateTime     @default(now())
+  updated_at   DateTime     @default(now())
+  GameCategory GameCategory[]
+}
+
+model GameCategory {
+  id          Int          @id @default(autoincrement())
+  game_id     Int
+  Game        Game         @relation(fields: [game_id], references: [id])
+  category_id Int
+  Category    Category      @relation(fields: [category_id], references: [id])
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @default(now())
+}
