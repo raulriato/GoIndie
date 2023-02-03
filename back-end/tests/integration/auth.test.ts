@@ -5,7 +5,9 @@ import httpStatus from 'http-status';
 import faker from '@faker-js/faker';
 import { createUser } from '@test/factories/users-factory';
 
-beforeAll(async () => cleanDb());
+beforeAll(async () => await cleanDb());
+
+afterAll(async () => await cleanDb());
 
 const server = supertest(app);
 

@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -14,8 +14,7 @@ model User {
   created_at DateTime     @default(now())
   updated_at DateTime     @default(now())
   Session    Session[]
-  Action     Action[]
-  Vote       Vote[]
+  Game       Game[]
   Rating     Rating[]
   Comment    Comment[]
   Like       Like[]
@@ -36,37 +35,16 @@ model Game {
   name         String       @unique
   released_at  DateTime
   subtitle     String
+  inserted_by   Int
+  User         User         @relation(fields: [inserted_by], references: [id])
   description  String       @db.Text
+  main_image   String
   created_at   DateTime     @default(now())
   updated_at   DateTime     @default(now())
-  Action       Action[]
   Rating       Rating[]
   Comment      Comment[]
   GameCategory GameCategory[]
-  @@index([name])
-}
-
-model Action {
-  id         Int          @id @default(autoincrement())
-  user_id    Int
-  User       User         @relation(fields: [user_id], references: [id])
-  game_id    Int
-  Game       Game         @relation(fields: [game_id], references: [id])
-  name       String
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
-  Vote       Vote[]
-}
-
-model Vote {
-  id         Int          @id @default(autoincrement())
-  user_id    Int
-  User       User         @relation(fields: [user_id], references: [id])
-  action_id  Int
-  Action     Action       @relation(fields: [action_id], references: [id])
-  is_up_vote Boolean
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
+  Image        Image[]
 }
 
 model Rating {
@@ -118,4 +96,13 @@ model GameCategory {
   Category    Category      @relation(fields: [category_id], references: [id])
   created_at  DateTime     @default(now())
   updated_at  DateTime     @default(now())
+}
+
+model Image {
+  id         Int          @id @default(autoincrement())
+  game_id    Int
+  Game       Game        @relation(fields: [game_id], references: [id])
+  url        String
+  created_at DateTime     @default(now())
+  updated_at DateTime     @default(now())
 }
