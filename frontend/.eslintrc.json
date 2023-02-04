@@ -21,17 +21,31 @@
     ],
     "rules": {
         "indent": [
-            "error",
+            2,
             2
         ],
         "quotes": [
-            "error",
+            2,
             "single"
         ],
         "semi": [
-            "error",
+            2,
             "always"
         ],
+        "comma-spacing": [2, { "before": false, "after": true }],
+        "semi-spacing": [2, { "before": false, "after": true }],
+        "object-curly-spacing": [2, "always"],
+        "no-multiple-empty-lines": [2, { "max": 1 }],
+        "space-before-function-paren": [
+          2,
+          {
+            "anonymous": "never",
+            "named": "never",
+            "asyncArrow": "always"
+          }
+        ],
+        "arrow-spacing": [2, { "before": true, "after": true }],
+        "no-console": "warn",
         "react/react-in-jsx-scope": "off"
     }
 }

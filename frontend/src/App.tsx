@@ -1,23 +1,8 @@
 import goIndie from '@/assets/images/goIndie.svg';
 import styled from 'styled-components';
 import { GlobalStyle } from '@/styles/GlobalStyle';
-import { useEffect, useState } from 'react';
 
 export default function App() {
-  const [qualquer, setQualquer] = useState('');
-  console.log(typeof qualquer);
-
-  useEffect(() => {
-    fetch('http://localhost:5000/status', {
-      method: 'GET'
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        setQualquer(data);
-      });
-  }, []);
   
   return (
     <>
@@ -40,5 +25,6 @@ const Container = styled.div`
 
   h1 {
     color: white;
+    font-family: 'Roboto', sans-serif;
   }
 `;
