@@ -12,8 +12,8 @@ model User {
   name       String
   email      String       @unique @db.VarChar(255)
   password   String       @db.VarChar(255)
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
   Session    Session[]
   Game       Game[]
   Rating     Rating[]
@@ -23,12 +23,12 @@ model User {
 
 model Session {
   id         Int          @id @default(autoincrement())
-  user_id    Int
-  User       User        @relation(fields: [user_id], references: [id])
+  userId    Int
+  User       User        @relation(fields: [userId], references: [id])
   token      String
   active     Boolean
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
 }
 
 model Game {
@@ -40,8 +40,8 @@ model Game {
   User         User         @relation(fields: [inserted_by], references: [id])
   description  String       @db.Text
   main_image   String
-  created_at   DateTime     @default(now())
-  updated_at   DateTime     @default(now())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
   Rating       Rating[]
   Comment      Comment[]
   GameCategory GameCategory[]
@@ -50,60 +50,60 @@ model Game {
 
 model Rating {
   id         Int          @id @default(autoincrement())
-  user_id    Int
-  User       User         @relation(fields: [user_id], references: [id])
-  game_id    Int
-  Game       Game         @relation(fields: [game_id], references: [id])
+  userId    Int
+  User       User         @relation(fields: [userId], references: [id])
+  gameId    Int
+  Game       Game         @relation(fields: [gameId], references: [id])
   rating     Int
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
 }
 
 model Comment {
   id         Int          @id @default(autoincrement())
-  user_id    Int
-  User       User         @relation(fields: [user_id], references: [id])
-  game_id    Int
-  Game       Game         @relation(fields: [game_id], references: [id])
+  userId    Int
+  User       User         @relation(fields: [userId], references: [id])
+  gameId    Int
+  Game       Game         @relation(fields: [gameId], references: [id])
   comment    String
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
   Like       Like[]
 }
 
 model Like {
   id         Int          @id @default(autoincrement())
-  user_id    Int
-  User       User         @relation(fields: [user_id], references: [id])
-  comment_id Int
-  Comment    Comment      @relation(fields: [comment_id], references: [id])
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
+  userId    Int
+  User       User         @relation(fields: [userId], references: [id])
+  commentId Int
+  Comment    Comment      @relation(fields: [commentId], references: [id])
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
 }
 
 model Category {
   id           Int          @id @default(autoincrement())
   name         String
-  created_at   DateTime     @default(now())
-  updated_at   DateTime     @default(now())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
   GameCategory GameCategory[]
 }
 
 model GameCategory {
   id          Int          @id @default(autoincrement())
-  game_id     Int
-  Game        Game         @relation(fields: [game_id], references: [id])
-  category_id Int
-  Category    Category      @relation(fields: [category_id], references: [id])
-  created_at  DateTime     @default(now())
-  updated_at  DateTime     @default(now())
+  gameId     Int
+  Game        Game         @relation(fields: [gameId], references: [id])
+  categoryId Int
+  Category    Category      @relation(fields: [categoryId], references: [id])
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now())
 }
 
 model Image {
   id         Int          @id @default(autoincrement())
-  game_id    Int
-  Game       Game        @relation(fields: [game_id], references: [id])
+  gameId    Int
+  Game       Game        @relation(fields: [gameId], references: [id])
   url        String
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
 }

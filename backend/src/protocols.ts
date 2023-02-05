@@ -5,4 +5,4 @@ export type ApplicationError = {
   message: string;
 };
 
-export type NewUserBody = Omit<User, 'password' | 'created_at' | 'updated_at'>
+export type NewUserBody = Omit<User, 'password' | 'createdAt' | 'updatedAt'>;
