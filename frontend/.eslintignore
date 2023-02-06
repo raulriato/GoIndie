@@ -1,7 +1,4 @@
 node_modules
-dist/*
-coverage
-requirements
 .vscode
 *.js
 *.json
@@ -11,3 +8,5 @@ prisma/**/*
 docker-compose*
 Dockerfile*
 nginx.conf
+build/*
+config/**/*

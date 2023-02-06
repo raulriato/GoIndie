@@ -34,14 +34,16 @@ model Session {
 model Game {
   id           Int          @id @default(autoincrement())
   name         String       @unique
-  released_at  DateTime
-  subtitle     String
-  inserted_by   Int
-  User         User         @relation(fields: [inserted_by], references: [id])
+  releasedAt   DateTime     @db.Date
+  subtitle     String?
+  insertedBy   Int
+  User         User         @relation(fields: [insertedBy], references: [id])
   description  String       @db.Text
-  main_image   String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @default(now())
+  mainImage    String
+  avgRating    Int
+  country      String?       
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @default(now())
   Rating       Rating[]
   Comment      Comment[]
   GameCategory GameCategory[]

@@ -32,6 +32,19 @@ describe('POST /auth/sign-up', () => {
     expect(response.status).toBe(httpStatus.BAD_REQUEST);
   });
 
+  it('should respond with status 400 when field confirmPassword is different from password', async () => {
+    const body = {
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(8),
+      confirmPassword: faker.datatype.string()
+    };
+
+    const response = await server.post('/auth/sign-up').send(body);
+
+    expect(response.status).toBe(httpStatus.BAD_REQUEST);
+  });
+
   describe('when body is valid', () => {
     const generateValidBody = () => {
       const password = faker.internet.password(8);

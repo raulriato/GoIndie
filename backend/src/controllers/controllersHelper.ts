@@ -1,5 +1,5 @@
 import { NewUserBody } from '@/protocols';
-import { Token } from '@/services';
+import { GamesResponse, Token } from '@/services';
 import { Response } from 'express';
 import httpStatus from 'http-status';
 
@@ -58,7 +58,7 @@ function unprocessableRequestResponse(
 ) {
   return res.status(httpStatus.UNPROCESSABLE_ENTITY).send(body);
 }
-function okResponse(res: Response, body: BodyParams | Token = STATUS_BODY.OK) {
+function okResponse(res: Response, body: BodyParams | Token | GamesResponse = STATUS_BODY.OK) {
   return res.status(httpStatus.OK).send(body);
 }
 

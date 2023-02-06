@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Game" ALTER COLUMN "subtitle" DROP NOT NULL,
+ALTER COLUMN "releasedAt" SET DATA TYPE DATE;
